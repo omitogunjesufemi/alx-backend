@@ -5,7 +5,7 @@ page with default value 1 and page_size with default value 10.
 """
 import csv
 import math
-from typing import List
+from typing import List, Dict
 
 
 class Server:
@@ -42,7 +42,7 @@ class Server:
         data_set = self.dataset()
         return data_set[start_index:end_index]
 
-    def get_hyper(self, page: int = 1, page_size: int = 10) -> List[List]:
+    def get_hyper(self, page: int = 1, page_size: int = 10) -> Dict:
         """
         returns a dictionary containing the following key-value pairs:
 
