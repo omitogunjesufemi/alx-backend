@@ -13,7 +13,7 @@ app = Flask(__name__)
 
 
 @app.route('/', strict_slashes=False)
-def hello():
+def hello() -> None:
     """Welcome page"""
     return render_template("index.html")
 
