@@ -15,10 +15,6 @@ app = Flask(__name__)
 <<<<<<< HEAD
 @app.route('/', strict_slashes=False)
 def hello() -> None:
-=======
-@app.route('/')
-def hello():
->>>>>>> ad20c03bc8f3aa52192931872d3f9e786512553e
     """Welcome page"""
     return render_template("index.html")
 
