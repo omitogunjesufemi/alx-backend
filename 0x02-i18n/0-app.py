@@ -15,10 +15,7 @@ app = Flask(__name__)
 @app.route('/', strict_slashes=False)
 def hello():
     """Welcome page"""
-    title = "Welcome to Holberton"
-    header = "Hello world"
-    return render_template("index.html", title=title,
-                           header=header)
+    return render_template("index.html")
 
 
 if __name__ == "__main__":
