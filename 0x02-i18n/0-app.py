@@ -12,7 +12,6 @@ from flask import Flask, render_template
 app = Flask(__name__)
 
 
-<<<<<<< HEAD
 @app.route('/', strict_slashes=False)
 def hello() -> None:
     """Welcome page"""
