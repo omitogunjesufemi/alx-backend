@@ -58,7 +58,7 @@ def get_user() -> Dict:
 
 
 @app.before_request
-def before_request():
+def before_request() -> None:
     """
     Use get_user to find a user if any, and set it as a global
     on flask.g.user
