@@ -10,6 +10,7 @@ from flask import Flask, render_template, request, g
 from flask_babel import Babel, _
 from typing import Dict
 import pytz
+from datetime import datetime
 
 
 class Config:
@@ -57,22 +58,22 @@ def get_timezone() -> str:
     pytz.timezone and catch the
     pytz.exceptions.UnknownTimeZoneError exception.
     """
-    time_zone = request.args.get('timezone')
+    time_zone = None
     if time_zone is app.config["BABEL_DEFAULT_TIMEZONE"]:
-        try:
-            return pytz.timezone(time_zone)
-        except pytz.exceptions.UnknownTimeZoneError:
-            pass
+        time_zone = request.args.get('timezone')
 
-    time_zone = g.user.get('timezone')
-    if time_zone is app.config["BABEL_DEFAULT_TIMEZONE"]:
-        try:
-            return pytz.timezone(time_zone)
-        except pytz.exceptions.UnknownTimeZoneError:
-            pass
+    elif time_zone is app.config["BABEL_DEFAULT_TIMEZONE"]:
+        time_zone = g.user.get('timezone')
 
-    return app.config["BABEL_DEFAULT_TIMEZONE"]
+    else:
+        time_zone = app.config["BABEL_DEFAULT_TIMEZONE"]
 
+    try:
+        time_zone = pytz.timezone(time_zone)
+    except pytz.exceptions.UnknownTimeZoneError:
+        pass
+
+    return time_zone
 
 def get_user() -> Dict:
     """
@@ -99,7 +100,10 @@ def before_request() -> None:
 @app.route('/', strict_slashes=False)
 def index() -> None:
     """Welcome page"""
-    return render_template("7-index.html")
+    timezone = get_timezone()
+    current_time = datetime.now().astimezone(timezone)
+    g.user["current_time"] = current_time
+    return render_template("index.html", current_time=current_time)
 
 
 if __name__ == "__main__":
