@@ -8,6 +8,7 @@ Hello world as header (<h1>).
 """
 from flask import Flask, render_template, request
 from flask_babel import Babel, _
+from typing import Optional
 
 
 class Config:
@@ -19,21 +20,20 @@ class Config:
 
 app = Flask(__name__)
 babel = Babel(app)
-
-
 app.config.from_object(Config())
+app.url_map.strict_slashes = False
 
 
 @babel.localeselector
-def get_locale() -> str:
+def get_locale() -> Optional[str]:
     """Get locale from request """
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 # babel.init_app(app, locale_selector=get_locale)
 
 
-@app.route('/', strict_slashes=False)
-def index() -> None:
+@app.route('/')
+def index() -> object:
     """Welcome page"""
     return render_template("3-index.html")
 

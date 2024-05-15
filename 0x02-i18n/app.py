@@ -75,6 +75,7 @@ def get_timezone() -> str:
 
     return time_zone
 
+
 def get_user() -> Dict:
     """
     Returns a user dictionary or None if the ID cannot be found
