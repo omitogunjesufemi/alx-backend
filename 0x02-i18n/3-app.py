@@ -12,7 +12,9 @@ from typing import Optional
 
 
 class Config:
-    """Config Class"""
+    """
+    Config Class
+    """
     LANGUAGES = ["en", "fr"]
     BABEL_DEFAULT_LOCALE = "en"
     BABEL_DEFAULT_TIMEZONE = "UTC"
@@ -26,7 +28,9 @@ app.url_map.strict_slashes = False
 
 @babel.localeselector
 def get_locale() -> Optional[str]:
-    """Get locale from request """
+    """
+    Get locale from request
+    """
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 # babel.init_app(app, locale_selector=get_locale)
@@ -34,7 +38,9 @@ def get_locale() -> Optional[str]:
 
 @app.route('/')
 def index() -> object:
-    """Welcome page"""
+    """
+    Welcome page
+    """
     return render_template("3-index.html")
 
 
