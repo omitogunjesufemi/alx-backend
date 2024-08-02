@@ -10,7 +10,7 @@
   {% if g.user %}
   <p>{{ _('logged_in_as', username=g.user.get("name", "")) }}</p>
   <br>
-  <p>{{ _('current_time_is', current_time=g.user.get("current_time", "")) }}</p>
+  <p>{{ _('current_time_is', current_time) }}</p>
   {% else %}
   <p>{{ _('not_logged_in') }}</p>
   <br>

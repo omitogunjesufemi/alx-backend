@@ -33,6 +33,16 @@ app.config.from_object(Config())
 babel = Babel(app)
 
 
+@app.before_request
+def before_request() -> None:
+    """
+    Use get_user to find a user if any, and set it as a global
+    on flask.g.user
+    """
+    user = get_user()
+    g.user = user
+
+
 @babel.localeselector
 def get_locale() -> str:
     """Get locale from request """
@@ -88,22 +98,11 @@ def get_user() -> Dict:
         return None
 
 
-@app.before_request
-def before_request() -> None:
-    """
-    Use get_user to find a user if any, and set it as a global
-    on flask.g.user
-    """
-    user = get_user()
-    g.user = user
-
-
 @app.route('/', strict_slashes=False)
 def index() -> None:
     """Welcome page"""
     timezone = get_timezone()
-    current_time = datetime.now().astimezone(timezone)
-    g.user["current_time"] = current_time
+    current_time = datetime.now(timezone)
     return render_template("index.html", current_time=current_time)
 
 
