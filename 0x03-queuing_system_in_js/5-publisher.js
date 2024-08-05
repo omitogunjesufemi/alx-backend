@@ -10,10 +10,10 @@ client.on('error', (err) => {
 console.log('Redis client connected to the server');
 
 function publishMessage(message, time) {
-
-  client.publish(clChannel, message);
-  console.log(message);
-
+  setTimeout(() => {
+    console.log(`About to send ${message}`);
+    client.publish(clChannel, message);
+  }, time);
 }
 
 publishMessage("Holberton Student #1 starts course", 100);

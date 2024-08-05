@@ -1,7 +1,4 @@
-import { count } from 'console';
-import { channel } from 'diagnostics_channel';
 import redis from 'redis';
-import { promisify } from 'util';
 
 
 const client = redis.createClient();
